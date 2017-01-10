@@ -39,7 +39,9 @@ public class CatalogActivity extends AppCompatActivity {
         displayDatebaseInfo();
     }
 
-    private void displayDatebaseInfo() {
+
+    private Cursor readDataFromDB() {
+        HabitDbHelper mDbHelper = new HabitDbHelper(this);
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
         String[] projection = {
                 ActivityContract.ActivityEntry._ID,
@@ -55,6 +57,12 @@ public class CatalogActivity extends AppCompatActivity {
                 null,
                 null,
                 null);
+        return cursor;
+    }
+
+
+    private void displayDatebaseInfo() {
+        Cursor cursor = readDataFromDB();
 
         TextView displayView = (TextView) findViewById(R.id.activity);
         try {
